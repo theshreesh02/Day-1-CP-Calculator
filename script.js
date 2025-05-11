@@ -41,6 +41,7 @@ function handleSymbol(symbol){
             }
             buffer += '.';
             break;
+        case '%':
         case '+':
         case '-':
         case '×':
@@ -65,6 +66,9 @@ function handleMath(symbol){
 }
 
 function flushOperation(floatBuffer){
+    if(previousOperator === '%'){
+        runningTotal = (100 * floatBuffer)/runningTotal;
+    }
     if(previousOperator === '+'){
         runningTotal += floatBuffer;
     }else if(previousOperator === '-'){
